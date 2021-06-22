@@ -1,10 +1,13 @@
 package com.devsuperior.dslearnbds.entities;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.devsuperior.dslearnbds.entities.pk.EnrollmentPK;
@@ -21,6 +24,9 @@ public class Enrollment {
 	private Instant refundMoment;
 	private boolean available; // O tipo básico (com 'b' minúsculo) tem SOMENTE os valores TRUE e FALSE
 	private boolean onlyUpdate; // O tipo wrapper ('B' maiúsculo) serve para o caso de ter TRUE, FALSE ou NULO
+	
+	@ManyToMany(mappedBy = "enrollmentsDone")
+	private Set<Lesson> lessonsDone = new HashSet<>();
 	
 	public Enrollment() {}
 

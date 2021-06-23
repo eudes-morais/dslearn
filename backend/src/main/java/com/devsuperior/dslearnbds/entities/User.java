@@ -123,39 +123,50 @@ public class User implements UserDetails, Serializable {
 	}
 	
 	// Implementando checklist do Spring Security - USERDETAILS
-		@Override
-		public Collection<? extends GrantedAuthority> getAuthorities() {
-			
-			return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList());
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList());
+	}
+
+	@Override
+	public String getUsername() {
+		
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		
+		return true;
+	}
+	
+	// método auxiliar para identificar qual(is) role(s) o usuário tem
+	public boolean hasRole(String roleName) {
+		for (Role role: roles) {
+			if (role.getAuthority().equals(roleName)) {
+				return true;
+			}
 		}
-
-		@Override
-		public String getUsername() {
-			
-			return email;
-		}
-
-		@Override
-		public boolean isAccountNonExpired() {
-
-			return true;
-		}
-
-		@Override
-		public boolean isAccountNonLocked() {
-			
-			return true;
-		}
-
-		@Override
-		public boolean isCredentialsNonExpired() {
-
-			return true;
-		}
-
-		@Override
-		public boolean isEnabled() {
-			
-			return true;
-		}
+		
+		return false;
+	}
 }

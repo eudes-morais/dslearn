@@ -1,3 +1,4 @@
+// Retorna o usuário logado
 package com.devsuperior.dslearnbds.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class AuthService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Transactional(readOnly = true) // Para não trava (unlock) o BD
+	@Transactional(readOnly = true) // Para não travar (unlock) o BD
 	public User authenticated() {
 		
 		try {
